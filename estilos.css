@@ -120,41 +120,42 @@ button:hover {
 }
 
   /* Estilos para el tablero */
-  #tablerosContainer {
-    display: grid;
-    gap: 20px;
-  }
-  
-  .tablero {
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .tablero h2 {
-    margin-top: 0;
-    text-align: center;
-  }
-  
-  .tablero table {
-    border-collapse: collapse;
-    margin: 0 auto;
-  }
-  
-  .tablero table td {
-    padding: 8px;
-    border: 1px solid #ccc;
-    text-align: center;
-  }
-  
-  .tablero .tablero-header {
-    font-weight: bold;
-    background-color: #f0f0f0;
-  }
-  
-  .tablero-cuadro {
-    cursor: pointer;
-  }
-  
+#tablerosContainer {
+  display: grid;
+  gap: 20px;
+}
+
+.tablero {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.tablero h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.tablero table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+/* Estilos para los cuadros del tablero */
+.tablero table td {
+  padding: 16px; /* Se aumenta el tamaño del cuadro */
+  border: 2px solid black; /* Se establece un borde negro */
+  text-align: center;
+}
+
+.tablero .tablero-header {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.tablero-cuadro {
+  cursor: pointer;
+}
+
   /* Estilos para el modal */
   .modal {
     display: none;
