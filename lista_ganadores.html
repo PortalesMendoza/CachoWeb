@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Ganadores - Cacho App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enlazamos el archivo de estilos -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Ganadores</h1>
+
+        <div id="ganadoresContainer">
+            <!-- Contenedor para mostrar la lista de ganadores -->
+        </div>
+
+        <button onclick="limpiarGanadores()">Limpiar Ganadores</button>
+        <button onclick="volverMenu()">Volver al menú principal</button>
+    </div>
+
+    <script>
+        // Obtener los datos de los ganadores almacenados en localStorage
+        const ganadores = JSON.parse(localStorage.getItem('ganadores'));
+
+        // Función para mostrar la lista de ganadores en la página
+        function mostrarListaGanadores() {
+            const ganadoresContainer = document.getElementById('ganadoresContainer');
+
+            if (ganadores && ganadores.length > 0) {
+                let tablaHTML = '<table>';
+                tablaHTML += '<tr><th>Jugador</th><th>Puntaje</th></tr>';
+
+                for (const ganador of ganadores) {
+                    tablaHTML += `<tr><td>${ganador.nombre}</td><td>${ganador.puntaje}</td></tr>`;
+                }
+
+                tablaHTML += '</table>';
+                ganadoresContainer.innerHTML = tablaHTML;
+            } else {
+                ganadoresContainer.innerHTML = '<p>No hay ganadores registrados aún.</p>';
+            }
+        }
+
+        // Función para limpiar los datos de los ganadores
+        function limpiarGanadores() {
+            localStorage.removeItem('ganadores');
+            window.location.reload(); // Recargar la página para reflejar los cambios
+        }
+
+        // Función para volver al menú principal
+        function volverMenu() {
+            window.location.href = "index.html";
+        }
+
+        // Mostrar la lista de ganadores al cargar la página
+        window.onload = function() {
+            mostrarListaGanadores();
+        };
+    </script>
+</body>
+</html>

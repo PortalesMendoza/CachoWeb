@@ -1,0 +1,302 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+/* Estilos compartidos para todas las páginas */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #007bff;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px; /* Espaciado entre el menú y el contenido principal */
+  }
+  
+  .menu-item {
+    margin: 10px;
+  }
+  
+  .menu-item button {
+    display: block;
+    width: 200px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px; /* Espaciado entre botones */
+  }
+  
+  .menu-item button:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Estilos para las cajas de ingreso de datos */
+  input[type="number"],
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px; /* Espaciado entre cajas de ingreso de datos */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Estilos para los botones submit */
+  input[type="submit"],
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: #0069d9;
+  }
+
+  .menu-item button {
+    /* ... otros estilos ... */
+    margin-bottom: 10px; /* Espaciado vertical entre botones */
+  }
+  
+  /* Estilos para los botones submit */
+input[type="submit"],
+button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px; /* Espaciado entre botones */
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background-color: #0069d9;
+}
+
+  /* Estilos para el tablero */
+  #tablerosContainer {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .tablero {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .tablero h2 {
+    margin-top: 0;
+    text-align: center;
+  }
+  
+  .tablero table {
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  .tablero table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .tablero .tablero-header {
+    font-weight: bold;
+    background-color: #f0f0f0;
+  }
+  
+  .tablero-cuadro {
+    cursor: pointer;
+  }
+  
+  /* Estilos para el modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .puntaje-disponible {
+    padding: 5px;
+    border: 1px solid #007bff;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .puntaje-disponible:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+
+/* Estilos para el tablero */
+.tablero {
+  margin-bottom: 20px;
+}
+
+.tablero table {
+  width: 100%;
+}
+
+.tablero table tr {
+  text-align: center;
+}
+
+.tablero-cuadro {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.puntaje-disponible {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #000;
+  display: inline-block;
+  margin: 2px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+/* Estilos responsive para el tablero */
+@media screen and (max-width: 600px) {
+  .tablero-cuadro {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .puntaje-disponible {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    margin: 1px;
+  }
+}
+/* Estilos para la lista de ganadores */
+#ganadoresContainer {
+    margin-top: 20px;
+    margin-bottom: 20px; /* Espacio adicional después de la lista de ganadores */
+}
+
+#ganadoresContainer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#ganadoresContainer th,
+#ganadoresContainer td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#ganadoresContainer th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* Estilos responsive para la lista de ganadores */
+@media screen and (max-width: 600px) {
+    #ganadoresContainer th,
+    #ganadoresContainer td {
+        font-size: 12px;
+    }
+}
+
+/* Estilos para la lista de jugadores */
+#listaJugadoresContainer {
+    margin-top: 20px;
+    margin-bottom: 20px; /* Espacio adicional después de la lista de jugadores */
+}
+
+#listaJugadoresContainer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#listaJugadoresContainer th,
+#listaJugadoresContainer td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#listaJugadoresContainer th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* Estilos responsive para la lista de jugadores */
+@media screen and (max-width: 600px) {
+    #listaJugadoresContainer th,
+    #listaJugadoresContainer td {
+        font-size: 12px;
+    }
+}

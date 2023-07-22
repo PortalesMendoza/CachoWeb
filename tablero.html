@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cacho App - Tablero</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enlazamos el archivo de estilos -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Cacho App - Tablero</h1>
+
+        <div id="tablerosContainer">
+            <!-- Generar los tableros aquí -->
+        </div>
+
+        <div id="ganadorContainer">
+            <!-- Contenedor para mostrar mensaje de ganador y botones -->
+        </div>
+
+        <button onclick="volverMenu()">Volver al menú principal</button>
+    </div>
+
+    <!-- Modal para seleccionar puntaje -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="posicionTitulo"></h2>
+            <div id="puntajesDisponibles" class="puntajes-container">
+                <!-- Puntajes disponibles se llenarán dinámicamente con JavaScript -->
+            </div>
+            <div>
+                <button onclick="elegirPuntajeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+  <script>
+    // Puntajes predefinidos
+    const puntajes = {
+      "B": [0, 1, 2, 3, 4, 5],
+      "D": [0, 2, 4, 6, 8, 10],
+      "T": [0, 3, 6, 9, 12, 15],
+      "E": [0, 20, 25],
+      "F": [0, 30, 35],
+      "P": [0, 40, 45],
+      "C": [0, 4, 8, 12, 16, 20],
+      "Q": [0, 5, 10, 15, 20, 25, 30],
+      "S": [0, 6, 12, 18, 24, 30],
+      "G": [0, 50, 55]
+    };
+
+    // Obtener información almacenada en localStorage
+    const cantidadJugadores = localStorage.getItem('cantidadJugadores');
+    const jugadores = JSON.parse(localStorage.getItem('jugadores'));
+
+    // Contador de tableros completos
+    let tablerosCompletos = 0;
+
+    // Variable para almacenar el índice del tablero en el que se seleccionó la posición grande
+    let tutiTableroIndex = null;
+
+    // Variable para almacenar el puntaje seleccionado en la posición grande
+    let tutiPuntaje = null;
+
+    // Función para mostrar el modal al hacer clic en un cuadro del tablero
+    function showModal(tableroIndex, posicion) {
+        const modal = document.getElementById('modal');
+        const puntajesDisponibles = puntajes[posicion];
+        const puntajesDisponiblesHTML = puntajesDisponibles
+            .map(
+                (puntaje) =>
+                    `<div class="puntaje-disponible" onclick="elegirPuntajeModal(${tableroIndex}, '${posicion}', ${puntaje})">${puntaje}</div>`
+            )
+            .join('');
+
+        document.getElementById('posicionTitulo').textContent = `Selecciona el puntaje para ${getNombreCompleto(
+            posicion
+        )}`;
+        document.getElementById('puntajesDisponibles').innerHTML = puntajesDisponiblesHTML;
+        modal.style.display = 'block';
+    }
+
+    // Función para cerrar el modal
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+    // Función para obtener el nombre completo de la posición
+    function getNombreCompleto(posicion) {
+      const nombres = {
+        "B": "BALA",
+        "D": "DUQUE",
+        "T": "TREN",
+        "E": "ESCALA",
+        "F": "FULL",
+        "P": "POKER",
+        "C": "CUADRA",
+        "Q": "QUINA",
+        "S": "SENA",
+        "G": "GRANDE"
+      };
+
+      return nombres[posicion];
+    }
+
+    // Función para elegir el puntaje de la posición seleccionada desde el modal
+    function elegirPuntajeModal(tableroIndex, posicion, puntaje) {
+        closeModal();
+
+        const tablero = document.getElementById(`tablero-${tableroIndex}`);
+        const cuadro = tablero.querySelector(`td[data-posicion="${posicion}"]`);
+        cuadro.textContent = puntaje;
+
+        // Si se selecciona la posición grande y el puntaje es 55, se muestra la pregunta de La Tuti
+        if (posicion === "G" && puntaje === 55) {
+            tutiTableroIndex = tableroIndex;
+            tutiPuntaje = puntaje;
+            mostrarPreguntaTuti();
+        } else {
+            // Calcular puntaje total del tablero
+            actualizarTablero(tableroIndex);
+
+            // Verificar si el tablero está completo
+            const puntajesJugador = tablero.querySelectorAll('td[data-posicion]');
+            const posicionesCompletas = Array.from(puntajesJugador).every(cuadro => cuadro.textContent !== "");
+            if (posicionesCompletas) {
+                tablerosCompletos++;
+
+                // Si todos los tableros están completos, buscar al ganador
+                if (tablerosCompletos === cantidadJugadores) {
+                    encontrarGanador();
+                }
+            }
+        }
+    }
+
+    // Función para mostrar la pregunta de La Tuti
+    function mostrarPreguntaTuti() {
+        const ganadorContainer = document.getElementById('ganadorContainer');
+        const jugador = jugadores[tutiTableroIndex - 1];
+        const ganador = {
+            nombre: jugador,
+            puntaje: tutiPuntaje
+        };
+
+        // Guardar al ganador en el local storage
+        guardarGanador(ganador);
+
+        // Mostrar mensaje de ganador y botones de nueva partida y finalizar partida
+        ganadorContainer.innerHTML = `
+            <p>¡Felicidades, ${ganador.nombre}! Ganaste con un puntaje de ${ganador.puntaje} puntos.</p>
+            <button onclick="nuevaPartida()">Nueva partida</button>
+            <button onclick="finalizarPartida()">Finalizar partida</button>
+        `;
+    }
+
+    // Función para calcular los puntajes de cada jugador y mostrar al ganador
+    function calcularPuntajes() {
+        tablerosCompletos = 0; // Reiniciar el contador de tableros completos
+        for (let i = 0; i < cantidadJugadores; i++) {
+            const tablero = document.getElementById(`tablero-${i + 1}`);
+            actualizarTablero(i + 1);
+        }
+    }
+
+    // Función para actualizar el puntaje total de un tablero específico
+    function actualizarTablero(tableroIndex) {
+        const tablero = document.getElementById(`tablero-${tableroIndex}`);
+        const puntajesJugador = tablero.querySelectorAll('td[data-posicion]');
+        let puntajeTotal = 0;
+
+        for (const cuadro of puntajesJugador) {
+            const puntaje = parseInt(cuadro.textContent);
+            if (!isNaN(puntaje)) {
+                puntajeTotal += puntaje;
+            }
+        }
+
+        const puntajeTotalElement = tablero.querySelector('p');
+        if (puntajeTotalElement) {
+            puntajeTotalElement.remove(); // Eliminar el párrafo anterior si existe
+        }
+
+        tablero.innerHTML += `<p>Puntaje total: ${puntajeTotal}</p>`;
+
+        // Verificar si hay un ganador
+        if (hayGanador(tableroIndex, puntajeTotal)) {
+            const ganadorContainer = document.getElementById('ganadorContainer');
+            const jugador = jugadores[tableroIndex - 1];
+            const ganador = {
+                nombre: jugador,
+                puntaje: puntajeTotal
+            };
+
+            // Guardar al ganador en el local storage
+            guardarGanador(ganador);
+
+            // Mostrar mensaje de ganador y botones de nueva partida y finalizar partida
+            ganadorContainer.innerHTML = `
+                <p>¡Felicidades, ${ganador.nombre}! Ganaste con un puntaje de ${ganador.puntaje} puntos.</p>
+                <button onclick="nuevaPartida()">Nueva partida</button>
+                <button onclick="finalizarPartida()">Finalizar partida</button>
+            `;
+        }
+    }
+
+    // Función para verificar si hay un ganador
+    function hayGanador(tableroIndex, puntajeTotal) {
+        const tablero = document.getElementById(`tablero-${tableroIndex}`);
+        const puntajesJugador = tablero.querySelectorAll('td[data-posicion]');
+        const posicionesCompletas = Array.from(puntajesJugador).every(cuadro => cuadro.textContent !== "");
+        const puntajeGrande = puntajesJugador[8].textContent;
+        return posicionesCompletas || (puntajeGrande === "55" && puntajeTotal >= 55);
+    }
+
+    // Función para guardar al ganador en el local storage
+    function guardarGanador(ganador) {
+        const listaGanadores = JSON.parse(localStorage.getItem('ganadores')) || [];
+        listaGanadores.push(ganador);
+        localStorage.setItem('ganadores', JSON.stringify(listaGanadores));
+    }
+
+   // Función para volver al menú principal
+   function volverMenu() {
+            window.location.href = "index.html";
+        }
+
+    // Función para iniciar una nueva partida
+    function nuevaPartida() {
+        window.location.href = "nueva_partida.html";
+    }
+
+    // Función para finalizar la partida y volver al menú principal
+    function finalizarPartida() {
+        // Borrar información del local storage
+        // localStorage.clear();
+        window.location.href = "cacho.html";
+    }
+
+    // Generar tableros de los jugadores
+    const tablerosContainer = document.getElementById('tablerosContainer');
+    let tablerosHTML = '';
+
+    for (let i = 0; i < cantidadJugadores; i++) {
+        const jugador = jugadores[i];
+        tablerosHTML += `<div class="tablero" id="tablero-${i + 1}">`;
+        tablerosHTML += `<h2>Jugador ${i + 1}: ${jugador}</h2>`;
+        tablerosHTML += '<table>';
+        tablerosHTML += '<tr>';
+        tablerosHTML += '<td data-posicion="B" onclick="showModal(' + (i + 1) + ', \'B\')"></td>';
+        tablerosHTML += '<td data-posicion="E" onclick="showModal(' + (i + 1) + ', \'E\')"></td>';
+        tablerosHTML += '<td data-posicion="C" onclick="showModal(' + (i + 1) + ', \'C\')"></td>';
+        tablerosHTML += '</tr>';
+        tablerosHTML += '<tr>';
+        tablerosHTML += '<td data-posicion="D" onclick="showModal(' + (i + 1) + ', \'D\')"></td>';
+        tablerosHTML += '<td data-posicion="F" onclick="showModal(' + (i + 1) + ', \'F\')"></td>';
+        tablerosHTML += '<td data-posicion="Q" onclick="showModal(' + (i + 1) + ', \'Q\')"></td>';
+        tablerosHTML += '</tr>';
+        tablerosHTML += '<tr>';
+        tablerosHTML += '<td data-posicion="T" onclick="showModal(' + (i + 1) + ', \'T\')"></td>';
+        tablerosHTML += '<td data-posicion="P" onclick="showModal(' + (i + 1) + ', \'P\')"></td>';
+        tablerosHTML += '<td data-posicion="S" onclick="showModal(' + (i + 1) + ', \'S\')"></td>';
+        tablerosHTML += '</tr>';
+        tablerosHTML += '<tr>';
+        tablerosHTML += '<td></td>';
+        tablerosHTML += '<td data-posicion="G" onclick="showModal(' + (i + 1) + ', \'G\')"></td>';
+        tablerosHTML += '<td></td>';
+        tablerosHTML += '</tr>';
+        tablerosHTML += '</table></div>';
+    }
+
+    tablerosContainer.innerHTML = tablerosHTML;
+
+    // Calcular puntajes iniciales
+    calcularPuntajes();
+  </script>
+</body>
+</html>

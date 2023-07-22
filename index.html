@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cacho App - Menú principal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Enlazamos el archivo de estilos -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Cacho App - Menú Principal</h1>
+
+    <div class="menu-items">
+      <div class="menu-item">
+        <button onclick="nuevaPartida()">Nueva partida</button>
+      </div>
+      <div class="menu-item">
+        <button onclick="listaGanadores()">Lista de ganadores</button>
+      </div>
+      <div class="menu-item">
+        <button onclick="listaJugadores()">Lista de jugadores</button>
+      </div>
+      <!-- Nueva opción para el tablero -->
+      <div class="menu-item">
+        <button onclick="irAlTablero()">Tablero</button>
+      </div>
+    </div>
+
+    <script>
+      // Funciones para redirigir a las páginas secundarias
+      function nuevaPartida() {
+        location.href = 'nueva_partida.html';
+      }
+
+      function listaGanadores() {
+        location.href = 'lista_Ganadores.html';
+      }
+
+      function listaJugadores() {
+        location.href = 'lista_Jugadores.html';
+      }
+
+      function irAlTablero() {
+        location.href = 'tablero.html';
+      }
+    </script>
+  </div>
+</body>
+</html>
