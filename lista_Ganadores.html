@@ -1,69 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Lista de Ganadores</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Enlazamos el archivo de estilos -->
-    <link rel="stylesheet" href="estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lista de ganadores de partidas de Cacho">
+  <title>Lista de Ganadores - CachoWeb</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <div class="login">
-	    <span class="login__circuit-mask"></span>
-     </div>
-    <div class="container">
-        <h1>Lista de Ganadores</h1>
-
-        <div id="ganadoresContainer">
-            <!-- Contenedor para mostrar la lista de ganadores -->
-        </div>
-
-        <button onclick="limpiarGanadores()">Limpiar Ganadores</button>
-        <button onclick="volverMenu()">Volver al menú principal</button>
-    </div>
-
-    <script>
-        // Obtener los datos de los ganadores almacenados en localStorage
-        const ganadores = JSON.parse(localStorage.getItem('ganadores'));
-
-        // Función para mostrar la lista de ganadores en la página
-        function mostrarListaGanadores() {
-            const ganadoresContainer = document.getElementById('ganadoresContainer');
-
-            if (ganadores && ganadores.length > 0) {
-                let tablaHTML = '<table>';
-                tablaHTML += '<tr><th>Jugador</th><th>Puntaje</th></tr>';
-
-                for (const ganador of ganadores) {
-                    tablaHTML += `<tr><td>${ganador.nombre}</td><td>${ganador.puntaje}</td></tr>`;
-                }
-
-                tablaHTML += '</table>';
-                ganadoresContainer.innerHTML = tablaHTML;
-            } else {
-                ganadoresContainer.innerHTML = '<p>No hay ganadores registrados aún.</p>';
-            }
-        }
-
-        // Función para limpiar los datos de los ganadores
-        function limpiarGanadores() {
-            localStorage.removeItem('ganadores');
-            window.location.reload(); // Recargar la página para reflejar los cambios
-        }
-
-        // Función para volver al menú principal
-        function volverMenu() {
-            window.location.href = "index.html";
-        }
-
-        // Mostrar la lista de ganadores al cargar la página
-        window.onload = function() {
-            mostrarListaGanadores();
-        };
-    </script>
-<footer>
-    Desarrollado por Gio Mendoza - Version 1.0 - 2023
-</footer>
-
+  <main class="container">
+    <h1>Lista de Ganadores</h1>
+    <section id="ganadoresContainer"></section>
+    <button id="btn-limpiar-ganadores" class="menu-item button">Limpiar Ganadores</button>
+    <button id="btn-volver-menu" class="menu-item button">Volver al menú principal</button>
+  </main>
+  <footer>
+    Desarrollado por Gio Mendoza - Versión 1.1 - 2025
+  </footer>
+  <script src="lista_ganadores.js"></script>
 </body>
 </html>

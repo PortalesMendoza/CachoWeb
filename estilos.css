@@ -17,7 +17,7 @@ body {
   width: 90%;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(0deg, #d0d4e0 10%, #303440 100%);
+  background: linear-gradient(0deg, #2c3e50 10%, #27ae60 100%); /* Verde oscuro a verde oliva */
   border-radius: 5px;
   color: #fff;
   text-align: center;
@@ -34,19 +34,19 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 5px; /* Reducido para móviles */
   margin: 0 auto;
 }
 
 .menu-item {
-  flex: 1 1 200px;
-  max-width: 200px;
+  flex: 1 1 180px; /* Reducido para que entren más botones en la pantalla */
+  max-width: 180px;
 }
 
 .menu-item button {
   width: 100%;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #2ecc71; /* Verde brillante para botones */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -55,7 +55,7 @@ h1 {
 }
 
 .menu-item button:hover {
-  background-color: #0069d9;
+  background-color: #27ae60; /* Verde más oscuro para hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -63,6 +63,11 @@ h1 {
   .menu-items {
     flex-direction: column;
     align-items: center;
+    gap: 5px; /* Mismo gap reducido en móviles */
+  }
+  .menu-item {
+    flex: 1 1 100%; /* Botones ocupan el 100% del ancho en móviles */
+    max-width: 100%;
   }
 }
 
@@ -95,7 +100,7 @@ button {
   display: block;
   width: 100%;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #2ecc71; /* Verde brillante para botones */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -106,7 +111,7 @@ button {
 
 input[type="submit"]:hover,
 button:hover {
-  background-color: #0069d9;
+  background-color: #27ae60; /* Verde más oscuro para hover */
 }
 
 /* === Lista de Ganadores === */
@@ -129,7 +134,7 @@ button:hover {
 }
 
 #ganadoresContainer th {
-  background-color: #007bff;
+  background-color: #2ecc71; /* Verde brillante para encabezados */
   color: #fff;
 }
 
@@ -167,13 +172,13 @@ button:hover {
 }
 
 #listaJugadoresContainer th {
-  background-color: #007bff;
+  background-color: #2ecc71; /* Verde brillante para encabezados */
   color: #fff;
 }
 
 #listaJugadoresContainer button {
   padding: 5px 10px;
-  background-color: #28a745;
+  background-color: #2ecc71; /* Verde brillante para botones */
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -181,7 +186,7 @@ button:hover {
 }
 
 #listaJugadoresContainer button:hover {
-  background-color: #218838;
+  background-color: #27ae60; /* Verde más oscuro para hover */
 }
 
 @media screen and (max-width: 600px) {
@@ -257,7 +262,7 @@ td[data-posicion]:not(:empty) {
   color: #333;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid #ccc;
   width: 80%;
   max-width: 400px;
   text-align: center;
@@ -278,8 +283,8 @@ td[data-posicion]:not(:empty) {
 
 .puntaje-disponible {
   padding: 5px;
-  border: 1px solid #007bff;
-  background-color: #888;
+  border: 1px solid #2ecc71; /* Verde brillante para bordes */
+  background-color: #27ae60; /* Verde oscuro para fondo */
   cursor: pointer;
   border-radius: 5px;
   display: inline-block;
@@ -288,7 +293,7 @@ td[data-posicion]:not(:empty) {
 }
 
 .puntaje-disponible:hover {
-  background-color: #007bff;
+  background-color: #2ecc71; /* Verde brillante para hover */
   color: #fff;
 }
 

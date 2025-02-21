@@ -1,119 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Nueva partida</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Enlazamos el archivo de estilos -->
+  <meta name="description" content="Inicia una nueva partida de Cacho con jugadores personalizados">
+  <title>Nueva Partida - CachoWeb</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <div class="login">
-    <span class="login__circuit-mask"></span>
-  </div>
-  <div class="container">
+  <main class="container">
     <h1>Nueva Partida</h1>
-
-    <form onsubmit="return guardarDatos()" id="nuevaPartidaForm">
+    <form id="nuevaPartidaForm" onsubmit="return guardarDatos()">
       <label for="cantidadJugadores">Cantidad de jugadores:</label>
-      <input type="number" id="cantidadJugadores" min="1" required><br><br>
-
-      <div id="jugadoresInput">
-        <!-- Espacio para agregar las cajas de nombre de jugadores dinámicamente -->
-      </div>
-
+      <input type="number" id="cantidadJugadores" min="1" max="10" required>
+      <div id="jugadoresInput"></div>
       <label for="primerJugador">Seleccionar primer jugador:</label>
-      <select id="primerJugador" required>
-        <!-- Opciones para seleccionar el primer jugador, se llenará con JavaScript -->
-      </select><br><br>
-
+      <select id="primerJugador" required></select>
       <input type="submit" value="Guardar y empezar partida">
     </form>
-
-    <button onclick="volverMenu()">Volver al menú principal</button>
-  </div>
-
-  <script>
-    function guardarDatos() {
-      const cantidadJugadores = document.getElementById('cantidadJugadores').value;
-      const jugadores = [];
-
-      for (let i = 1; i <= cantidadJugadores; i++) {
-        const jugadorNombre = document.getElementById(`jugador${i}`).value.trim(); // Eliminamos espacios en blanco
-        if (!jugadorNombre) {
-          alert(`El nombre del jugador ${i} no puede estar vacío.`);
-          return false; // Evitamos enviar el formulario si hay nombres vacíos
-        }
-        jugadores.push(jugadorNombre);
-      }
-
-      const primerJugadorIndex = document.getElementById('primerJugador').selectedIndex;
-      const primerJugador = jugadores[primerJugadorIndex];
-
-      localStorage.setItem('cantidadJugadores', cantidadJugadores);
-      localStorage.setItem('jugadores', JSON.stringify(jugadores));
-      localStorage.setItem('primerJugador', primerJugador);
-
-      // Redireccionar a la página del tablero después de guardar los datos
-      window.location.href = 'tablero.html';
-
-      return false; // Para evitar que el formulario haga un envío por defecto
-    }
-
-   // Función para volver al menú principal
-   function volverMenu() {
-            window.location.href = "index.html";
-        }
-      
-
-    // Función para generar las cajas de nombres de jugadores
-    function generarCajasJugadores() {
-      const cantidadJugadores = document.getElementById('cantidadJugadores').value;
-      const jugadoresInput = document.getElementById('jugadoresInput');
-
-      let inputHTML = '';
-      for (let i = 1; i <= cantidadJugadores; i++) {
-        inputHTML += `<label for="jugador${i}">Nombre jugador ${i}:</label>`;
-        inputHTML += `<input type="text" id="jugador${i}" maxlength="20" placeholder="Nombre jugador ${i}" required><br>`;
-      }
-
-      jugadoresInput.innerHTML = inputHTML;
-      generarSelectPrimerJugador();
-    }
-
-    // Generar las opciones del select para seleccionar primer jugador
-    function generarSelectPrimerJugador() {
-      const cantidadJugadores = document.getElementById('cantidadJugadores').value;
-      const selectHTML = document.getElementById('primerJugador');
-
-      let selectOptions = '';
-      for (let i = 1; i <= cantidadJugadores; i++) {
-        selectOptions += `<option value="jugador${i}">Jugador ${i}</option>`;
-      }
-
-      selectHTML.innerHTML = selectOptions;
-    }
-
-    // Asociar evento oninput a las cajas de nombres de jugadores
-    document.addEventListener('input', function(event) {
-      const element = event.target;
-      if (element.tagName === 'INPUT' && element.id.startsWith('jugador')) {
-        const jugadorNombre = element.value.trim();
-        if (!jugadorNombre) {
-          alert(`El nombre del jugador no puede estar vacío.`);
-        }
-      }
-    });
-
-    // Asociar evento onchange al input de cantidad de jugadores
-    document.getElementById('cantidadJugadores').addEventListener('change', generarCajasJugadores);
-
-    // Generar las cajas de nombres de jugadores al cargar la página
-    generarCajasJugadores();
-  </script>
-<footer>
-  Desarrollado por Gio Mendoza - Version 1.0 - 2023
-</footer>
-
+    <button id="btn-volver-menu" class="menu-item button">Volver al menú principal</button>
+  </main>
+  <footer>
+    Desarrollado por Gio Mendoza - Versión 1.1 - 2025
+  </footer>
+  <script src="nueva_partida.js"></script>
 </body>
 </html>

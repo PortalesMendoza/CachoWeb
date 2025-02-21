@@ -1,93 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Lista de Jugadores</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Enlazamos el archivo de estilos -->
+  <meta name="description" content="Lista de jugadores registrados en CachoWeb">
+  <title>Lista de Jugadores - CachoWeb</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <div class="login">
-    <span class="login__circuit-mask"></span>
-  </div>
-  <div class="container">
+  <main class="container">
     <h1>Lista de Jugadores</h1>
-
-    <div id="listaJugadoresContainer">
-      <!-- Contenedor para mostrar la lista de jugadores -->
-    </div>
-
-    <button onclick="volverMenu()">Volver al menú principal</button>
-  </div>
-
-  <script>
-    // Obtener los datos de los jugadores almacenados en localStorage
-    const jugadores = JSON.parse(localStorage.getItem('jugadores')) || [];
-
-    // Función para mostrar la lista de jugadores en la página
-    function mostrarListaJugadores() {
-      const listaJugadoresContainer = document.getElementById('listaJugadoresContainer');
-
-      if (jugadores.length > 0) {
-        let tablaHTML = '<table>';
-        tablaHTML += '<tr><th>Jugador</th><th>Editar Nombre</th></tr>';
-
-        for (const jugador of jugadores) {
-          tablaHTML += `<tr>`;
-          tablaHTML += `<td>${jugador}</td>`;
-          tablaHTML += `<td><button onclick="editarNombre('${jugador}')">Editar</button></td>`;
-          tablaHTML += `</tr>`;
-        }
-
-        tablaHTML += '</table>';
-        listaJugadoresContainer.innerHTML = tablaHTML;
-      } else {
-        listaJugadoresContainer.innerHTML = '<p>No hay jugadores registrados aún.</p>';
-      }
-    }
-
-    // Función para editar el nombre del jugador
-    function editarNombre(jugador) {
-      const nuevoNombre = prompt(`Ingrese el nuevo nombre para ${jugador}:`, jugador);
-
-      if (nuevoNombre !== null && nuevoNombre.trim() !== '') {
-        const index = jugadores.indexOf(jugador);
-        if (index !== -1) {
-          jugadores[index] = nuevoNombre.trim();
-          localStorage.setItem('jugadores', JSON.stringify(jugadores));
-          mostrarListaJugadores();
-          actualizarTableros();
-        }
-      }
-    }
-
-    // Función para volver al menú principal
-    function volverMenu() {
-            window.location.href = "index.html";
-        }
-        
-    // Función para actualizar los tableros
-    function actualizarTableros() {
-      const tableros = document.getElementsByClassName('tablero');
-      for (let i = 0; i < tableros.length; i++) {
-        const tablero = tableros[i];
-        const jugadorNombre = tablero.querySelector('h2').textContent;
-        const jugadorNuevoNombre = jugadores[i];
-        if (jugadorNombre !== jugadorNuevoNombre) {
-          tablero.querySelector('h2').textContent = jugadorNuevoNombre;
-        }
-      }
-    }
-
-    // Mostrar la lista de jugadores al cargar la página
-    window.onload = function() {
-      mostrarListaJugadores();
-    };
-  </script>
-<footer>
-  Desarrollado por Gio Mendoza - Version 1.0 - 2023
-</footer>
-
+    <section id="listaJugadoresContainer"></section>
+    <button id="btn-limpiar-jugadores" class="menu-item button">Limpiar Jugadores</button>
+    <button id="btn-volver-menu" class="menu-item button">Volver al menú principal</button>
+  </main>
+  <footer>
+    Desarrollado por Gio Mendoza - Versión 1.1 - 2025
+  </footer>
+  <script src="lista_jugadores.js"></script>
 </body>
 </html>

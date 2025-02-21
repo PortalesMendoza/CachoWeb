@@ -1,60 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Menú principal</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Enlazamos el archivo de estilos -->
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="reset.css">
+  <meta name="description" content="Tablero digital para anotar puntajes de Cacho">
+  <title>Menú Principal - CachoWeb</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <div class="login">
-	    <span class="login__circuit-mask"></span>
-  </div>
-  
-  <div class="container">
+  <main class="container">
     <h1>Menú Principal</h1>
-    <div class="menu-items">
+    <nav class="menu-items">
       <div class="menu-item">
-        <button onclick="nuevaPartida()">Nueva partida</button>
+        <button id="btn-nueva-partida">Nueva partida</button>
       </div>
       <div class="menu-item">
-        <button onclick="listaGanadores()">Lista de ganadores</button>
+        <button id="btn-lista-ganadores">Lista de ganadores</button>
       </div>
       <div class="menu-item">
-        <button onclick="listaJugadores()">Lista de jugadores</button>
+        <button id="btn-lista-jugadores">Lista de jugadores</button>
       </div>
-      <!-- Nueva opción para el tablero -->
       <div class="menu-item">
-        <button onclick="irAlTablero()">Tablero</button>
+        <button id="btn-tablero">Tablero</button>
       </div>
-    </div>
-
-    <script>
-      // Funciones para redirigir a las páginas secundarias
-      function nuevaPartida() {
-        location.href = 'nueva_partida.html';
-      }
-
-      function listaGanadores() {
-        location.href = 'lista_Ganadores.html';
-      }
-
-      function listaJugadores() {
-        location.href = 'lista_Jugadores.html';
-      }
-
-      function irAlTablero() {
-        location.href = 'tablero.html';
-      }
-    </script>
-  </div>
-
+    </nav>
+  </main>
   <footer>
-    Desarrollado por Gio Mendoza - Version 1.0 - 2023
+    Desarrollado por Gio Mendoza - Versión 1.1 - 2025
   </footer>
-  
+  <script src="scripts.js"></script>
 </body>
 </html>
