@@ -81,12 +81,14 @@ function restaurarPuntajes(cantidadJugadores) {
 
 function showModal(tableroIndex, posicion) {
   const cuadro = document.querySelector(`#tablero-${tableroIndex} td[data-posicion="${posicion}"]`);
-  if (cuadro.textContent !== '') return;
   const modal = document.getElementById('modal');
   const puntajesDisponibles = puntajes[posicion];
+  const puntajeActual = cuadro.textContent || ''; // Obtener el puntaje actual, si existe
+
+  // Mostrar el puntaje actual como seleccionado en el modal (si hay uno)
   document.getElementById('posicionTitulo').textContent = `Selecciona el puntaje para ${getNombreCompleto(posicion)}`;
   document.getElementById('puntajesDisponibles').innerHTML = puntajesDisponibles
-    .map(p => `<div class="puntaje-disponible" onclick="elegirPuntajeModal(${tableroIndex}, '${posicion}', ${p})">${p}</div>`).join('');
+    .map(p => `<div class="puntaje-disponible${puntajeActual === p.toString() ? ' selected' : ''}" onclick="elegirPuntajeModal(${tableroIndex}, '${posicion}', ${p})">${p}</div>`).join('');
   modal.style.display = 'block';
 }
 
