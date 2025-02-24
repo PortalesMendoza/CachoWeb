@@ -304,3 +304,8 @@ footer {
   font-size: 14px;
   color: #fff;
 }
+.puntaje-disponible.selected {
+  background-color: #e0f7fa;
+  border-color: #27ae60;
+  color: #333;
+}
